@@ -3,7 +3,7 @@
 A lightweight macOS menu bar app that lists devices on the local network by name and IP.
 Small menu bar, big visibility.
 
-![Pinglet Screenshot](assets/pinglet.png)
+![Pinglet Screenshot](assets/pinglet-2.png)
 
 **Highlights**
 - Auto-refresh on a timer and when Wi-Fi connects/changes
