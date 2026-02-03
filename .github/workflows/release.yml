@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          swift build -c release
+
+      - name: Package .app
+        run: |
+          APP_NAME="Pinglet"
+          VERSION="${GITHUB_REF_NAME#v}"
+          BUILD_BIN=".build/release/${APP_NAME}"
+          DIST_DIR="dist"
+          APP_DIR="$DIST_DIR/${APP_NAME}.app"
+          CONTENTS_DIR="$APP_DIR/Contents"
+          MACOS_DIR="$CONTENTS_DIR/MacOS"
+          RES_DIR="$CONTENTS_DIR/Resources"
+
+          rm -rf "$DIST_DIR"
+          mkdir -p "$MACOS_DIR" "$RES_DIR"
+
+          cp "$BUILD_BIN" "$MACOS_DIR/${APP_NAME}"
+
+          cat > "$CONTENTS_DIR/Info.plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleName</key>
+  <string>${APP_NAME}</string>
+  <key>CFBundleDisplayName</key>
+  <string>${APP_NAME}</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.example.pinglet</string>
+  <key>CFBundleVersion</key>
+  <string>${VERSION}</string>
+  <key>CFBundleShortVersionString</key>
+  <string>${VERSION}</string>
+  <key>CFBundleExecutable</key>
+  <string>${APP_NAME}</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>LSUIElement</key>
+  <true/>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+</dict>
+</plist>
+PLIST
+
+          (cd "$DIST_DIR" && zip -r "${APP_NAME}-${VERSION}-macOS.zip" "${APP_NAME}.app")
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/NetTopBar-*-macOS.zip
