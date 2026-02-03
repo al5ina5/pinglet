@@ -1,4 +1,15 @@
-# Pinglet
+# 🐷 Pinglet 🐽
+
+## Install & Launch 🐷
+
+1. Download the latest `Pinglet-<version>-macOS.zip` from the GitHub Releases page.
+2. Unzip, then move `Pinglet.app` to `/Applications`.
+3. Open `Pinglet.app`.
+4. If macOS says the app is damaged, remove quarantine and try again:
+
+```bash
+xattr -dr com.apple.quarantine "/Applications/Pinglet.app"
+```
 
 A lightweight macOS menu bar app that lists devices on the local network by name and IP.
 Small menu bar, big visibility.
