@@ -1,5 +1,10 @@
 # 🐷 Pinglet 🐽
 
+A lightweight macOS menu bar app that lists devices on the local network by name and IP.
+Small menu bar, big visibility.
+
+![Pinglet Screenshot](assets/pinglet-2.png)
+
 ## Install & Launch 🐷
 
 1. Download the latest `Pinglet-<version>-macOS.zip` from the GitHub Releases page.
@@ -10,11 +15,6 @@
 ```bash
 xattr -dr com.apple.quarantine "/Applications/Pinglet.app"
 ```
-
-A lightweight macOS menu bar app that lists devices on the local network by name and IP.
-Small menu bar, big visibility.
-
-![Pinglet Screenshot](assets/pinglet-2.png)
 
 **Highlights**
 - Auto-refresh on a timer and when Wi-Fi connects/changes
