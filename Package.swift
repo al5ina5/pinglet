@@ -12,7 +12,10 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "Pinglet",
-            path: "Sources/Pinglet"
+            path: "Sources/Pinglet",
+            resources: [
+                .process("Resources")
+            ]
         )
     ]
 )
